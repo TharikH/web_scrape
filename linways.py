@@ -2,14 +2,14 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 def format_string(str,length):
-    if (length==1):
+    if (len(str)==1):
         return str
     while(len(str)<length):
         str+=" "
     return str
 option=Options()
-# option.add_argument("--headless")
-driver=Chrome(executable_path="/home/tharikh/scrapz/chromedriver",chrome_options=option)
+option.add_argument("--headless")
+driver=Chrome(executable_path="/home/tharikh/web_scrape/chromedriver",chrome_options=option)
 url="https://tkmce.linways.com/student/parent.php"
 driver.get(url)
 username=input("enter user name")
@@ -26,6 +26,7 @@ with open("temp.txt","w") as f:
     for i in temp:
         collection=driver.find_elements_by_tag_name('td') or driver.find_elements_by_tag_name('th')
         for j in collection:
-            str=format_string(j.text,15)
-            f.write(str)
+            str=format_string(j.text,25)
+            f.write(str+" ")
+        f.write("\n")
 driver.close()
